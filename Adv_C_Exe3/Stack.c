@@ -171,133 +171,120 @@ int isPalindrome(Stack* s)
 
 
 
-//void rotateStack(Stack* s, int n)
-//{
-//	
-//	Stack s_temp3 = *s;
-//	Stack s_temp4 = *s;
-//	Stack* tmp_ptr = (Stack*)malloc(1 * sizeof(Stack));
-//	if (tmp_ptr == NULL) //if allocation failed exit the program
-//	{
-//		exit(1);
-//	}
-//    
-//	Stack* current =s;
-//	Stack* scouter = NULL;
-//	Stack* prev = NULL;
-//
-//
-//	char c;
-//
-//	
-//	int amount = HowMany(s_temp3);
-//	if (n <= 0|| n >= amount)
-//		return;
-//		
-//	int i = 0;
-//	
-//
-//
-//	
-//
-//	Stack* s_temp1 = (Stack*)malloc(1 * sizeof(Stack));
-//	if (s_temp1 == NULL) //if allocation failed exit the program
-//	{
-//		exit(1);
-//	}
-//
-//	Stack* s_temp2 = (Stack*)malloc(1 * sizeof(Stack));
-//	if (s_temp2 == NULL) //if allocation failed exit the program
-//	{
-//		exit(1);
-//	}
-//
-//	initStack(s_temp1);
-//	initStack(s_temp2);
-//	initStack(tmp_ptr);
-//
-//	
-//	
-//	while (current->head!= NULL)
-//	{
-//		
-//
-//		if (i< (amount - n))
-//		{
-//			prev = current;
-//			push(s_temp2, prev->head->data);
-//		}
-//		
-//		else
-//		{
-//			prev = current;
-//			push(s_temp1, prev->head->data);
-//		}
-//	
-//		i++;
-//	
-//		current = current->head->next;
-//	}
-//
-//	
-//	
-//	
-//	
-//	for (int j = 0; j < (amount-n); j++)
-//	{
-//		
-//		c = pop(s_temp2);
-//		push(tmp_ptr, c);
-//	    
-//	}
-//	
-//	for (int k = 0; k < n; k++)
-//	{
-//		c = pop(s_temp1);
-//		push(tmp_ptr, c);
-//       
-//	}
-//	
-//	s = tmp_ptr;
-//	
-//
-//	
-//	
-//	
-//
-//
-//
-//	
-//
-//
-//
-//
-//
-//
-//
-//
-//	// add your code here
-//}
-//
-//
-//
-//
-//
-//
-//
-//
-//int HowMany(Stack s)
-//{
-//	Stack s_tmp = s;
-//	
-//	if (s_tmp.head == NULL)
-//	return 0;
-//	
-//	
-//	else if ((s_tmp.head != NULL))
-//	{
-//		s_tmp.head = s_tmp.head->next;
-//		return HowMany(s_tmp) + 1;
-//	} 
-//	
-//}
+void rotateStack(Stack* s, int n)
+{
+	
+	Stack s_temp3 = *s;
+	
+	
+	int amount = HowMany(s_temp3);
+	if (n <= 0|| n >= amount)
+		return;
+		
+	int i = 0;
+	
+
+
+	
+
+	Stack* s_temp1 = (Stack*)malloc(1 * sizeof(Stack));
+	if (s_temp1 == NULL) //if allocation failed exit the program
+	{
+		exit(1);
+	}
+
+	Stack* s_temp2 = (Stack*)malloc(1 * sizeof(Stack));
+	if (s_temp2 == NULL) //if allocation failed exit the program
+	{
+		exit(1);
+	}
+
+	initStack(s_temp1);
+	initStack(s_temp2);
+
+	
+	while (s_temp3.head!= NULL)
+	{
+		
+
+		if (i< (amount - n))
+		{
+			
+			push(s_temp2, s_temp3.head->data);
+		}
+		
+		else
+		{
+			push(s_temp1, s_temp3.head->data);
+		}
+	
+		s_temp3.head = s_temp3.head->next;
+		i++;
+	
+	}
+
+	
+	
+	
+	destroyStack(s);
+	initStack(s);
+	for (int j = 0; j < (amount-n); j++)
+	{
+		
+		push(s, pop(s_temp2));
+	    
+	}
+	
+	for (int k = 0; k < n; k++)
+	{
+		push(s, pop(s_temp1));
+       
+	}
+	
+	
+	
+	
+	
+	 
+	
+
+	
+	
+	
+
+
+
+	
+
+
+
+
+
+
+
+
+	// add your code here
+}
+
+
+
+
+
+
+
+
+int HowMany(Stack s)
+{
+	Stack s_tmp = s;
+	
+	if (s_tmp.head == NULL)
+	return 0;
+	
+	
+	else if ((s_tmp.head != NULL))
+	{
+		s_tmp.head = s_tmp.head->next;
+		return HowMany(s_tmp) + 1;
+	} 
+	
+}

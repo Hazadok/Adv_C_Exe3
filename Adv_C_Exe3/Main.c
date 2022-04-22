@@ -69,16 +69,18 @@ void main()
 	char sentence[] = { "#meR#embe#siht r# practice" };
 	flipBetweenHashes(sentence);
 
-
 	
+	
+
 
 	rotateStack(s, 3);
 
-	while (s->head != NULL)
+	Stack check_rotate = *s;
+
+	while (check_rotate.head != NULL)
 	{
-		printf("\n%c", s->head->data);
-		s->head = s->head->next;
+		printf("\n%c", check_rotate.head->data);
+		check_rotate.head = check_rotate.head->next;
+
 	}
-
-
 }
