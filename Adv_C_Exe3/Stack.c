@@ -25,28 +25,28 @@ void destroyStack(Stack* s)
 		free(current);
 		current = scouter;
 	}
-	
+
 	s->head = NULL;
-		
+
 }
 
 void push(Stack* s, char data)
 {
 	charNode* new_node = (charNode*)calloc(1, sizeof(charNode));
-	if (new_node==NULL)
+	if (new_node == NULL)
 	{
 		exit(1);
 	}
 
 
 	new_node->data = data;
-	
-	if (s->head == NULL)
-	    s->head = new_node;
 
-	
+	if (s->head == NULL)
+		s->head = new_node;
+
+
 	else
-	
+
 	{
 		new_node->next = s->head;
 		s->head = new_node;
@@ -64,7 +64,7 @@ char pop(Stack* s)
 	free(current);
 
 	return ex;
-	
+
 }
 
 
@@ -163,7 +163,76 @@ void flipBetweenHashes(const char* sentence)
 
 int isPalindrome(Stack* s)
 {
-	// add your code here
+	if (s == NULL) {
+		puts("illigal stack\n");
+		return -1;
+	}
+	if (isEmptyStack(s)) return 1;
+	int size = sizeof(*s);
+	Stack* s1 = (Stack*)malloc(size);
+	Stack* s2 = (Stack*)malloc(size / 2);
+	if (!s1||!s2) {
+		puts("allocation failed\n");
+		exit(1);
+	}
+	int counter = 0;
+	while (!isEmptyStack(s)) {
+		push(s1, pop(s));
+		counter++;
+	}
+	char c;
+	for (int i = 0; i < counter / 2; i++)
+		push(s2, pop(s1));
+	if (counter % 2 != 0)
+		c = pop(s1);
+	int i;
+	for ( i = 0; i < counter / 2; i++) {
+		char c1=pop(s1), c2=pop(s2);
+		if (c1 != c2) {
+			push(s1, c1);
+			push(s2, c2);
+			break;
+		}
+		else {
+			push(s, c1);
+			push(s, c2);
+		}
+	}
+	if (i == counter / 2) {
+		for (int j = 0; j < counter / 2; j++) {
+			push(s1, pop(s));
+			push(s2, pop(s));
+		}
+		push(s1, c);
+		for (int j = 0; j < counter / 2; j++)
+			push(s1, pop(s2));
+		for (int j = 0; j < counter; j++)
+			push(s, pop(s1));
+		free(s1); free(s2);
+		return 1;
+	}
+	else if (isEmptyStack(s)) {
+		push(s1, c);
+		for (int j = 0; j < counter / 2; j++)
+			push(s1, pop(s2));
+		for (int j = 0; j < counter; j++)
+			push(s, pop(s1));
+		free(s1); free(s2);
+		return 0;
+	}
+	else {
+		while (isEmptyStack(s)){
+			push(s1, pop(s));
+			push(s2, pop(s));
+		}
+		push(s1, c);
+		for (int j = 0; j < counter / 2; j++)
+			push(s1, pop(s2));
+		for (int j = 0; j < counter; j++)
+			push(s, pop(s1));
+		free(s1); free(s2);
+		return 0;
+	}
 }
 
 

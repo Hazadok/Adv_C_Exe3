@@ -60,7 +60,29 @@ int isEmptyQueue(const Queue* q)
 
 void rotateQueue(Queue* q)
 {
-	// add your code here
+	if (q == NULL) {
+		puts("illigal queue\n");
+		return;
+	}
+	if (isEmptyQueue(q))
+		return;
+	Queue* q1 = (Queue*)malloc(sizeof(*q));
+	if (!q1) {
+		puts("allocation failed\n");
+	}
+	else {
+		int counter = 0;
+		while (isEmptyQueue(q)){
+			enqueue(q1, dequeue(q));
+			counter++;
+		}
+		for (int i = 0; i < counter - 1; i++) 
+			enqueue(q, dequeue(q1));
+		for (int i = 0; i < counter - 1; i++)
+			enqueue(q1, dequeue(q));
+		for (int i = 0; i < counter; i++)
+			enqueue(q, dequeue(q1));
+	}
 }
 
 void cutAndReplace(Queue* q)
@@ -70,5 +92,42 @@ void cutAndReplace(Queue* q)
 
 void sortKidsFirst(Queue* q)
 {
-	// add your code here
+	if (q == NULL) {
+		puts("illigal queue\n");
+		return;
+	}
+	if (isEmptyQueue(q))
+		return;
+	Queue* q1 = (Queue*)malloc(sizeof(*q));
+	Queue* q2 = (Queue*)malloc(sizeof(*q));
+	if (!q1||!q2) {
+		puts("allocation failed\n");
+	}
+	int counter = 0, min = INT_MAX, check;
+	while (!isEmptyQueue(q)) {
+		check = dequeue(q);
+		counter++;
+		if (check < min)
+			min = check;
+		enqueue(q1, check);
+	}
+	
+	for (int i = 0; i < counter; i++) {
+		while (!isEmptyQueue(q1)) {
+		    check = dequeue(q1);
+			if (check <= min) {
+				enqueue(q, check);
+			}
+			else {
+				enqueue(q2, check);
+			}
+		}
+		min = INT_MAX;
+		while (!isEmptyQueue(q2)){
+			check = dequeue(q2);
+			if (check < min)
+				min = check;
+			enqueue(q1, check);
+		}
+	}
 }
