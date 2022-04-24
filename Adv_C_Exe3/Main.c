@@ -83,4 +83,38 @@ void main()
 		check_rotate.head = check_rotate.head->next;
 
 	}
+
+
+
+
+
+
+Queue* q = (Queue*)malloc(1 * sizeof(Queue));
+if (q == NULL)
+exit(1);
+
+
+
+cutAndReplace(q);
+Queue q_tmp = *q;
+printf("\n");
+for (int i = 0; i < 7; i++)
+{
+
+	printf("\n%d", q_tmp.head->data);
+
+	q_tmp.head = q_tmp.head->next;
+
+}
+
+
+
+
+
+
+
+
+
+
+
 }
